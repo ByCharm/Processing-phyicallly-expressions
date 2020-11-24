@@ -1,0 +1,7 @@
+Spannung mal Strom mal Zeit
+Laenge mal Laenge
+Laenge hoch 3
+Laenge durch Zeit
+Laenge durch Zeit zum Quadrat
+Masse mal Laenge zum Quadrat mal Zeit hoch -3 mal Strom hoch -1
+Strom Spannung mal Widerstand durch Leistung

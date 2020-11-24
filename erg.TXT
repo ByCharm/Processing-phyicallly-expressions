@@ -1,0 +1,7 @@
+Result: Energie
+Result: Flaeche
+Result: Volumen
+Result: Geschwindigkeit
+Result: Beschleunigung
+Result: Spannung
+ERROR: syntax error

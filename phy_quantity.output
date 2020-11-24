@@ -1,0 +1,209 @@
+Grammar
+
+    0 $accept: Input $end
+
+    1 Input: /* empty */
+    2      | Input Line
+
+    3 Line: END
+    4     | expr END
+
+    5 expr: PG
+    6     | expr DIV expr
+    7     | expr MUL expr
+    8     | expr POW NUMBER
+    9     | expr POW2
+   10     | SQRT expr
+
+
+Terminals, with rules where they appear
+
+$end (0) 0
+error (256)
+NUMBER (258) 8
+PG (259) 5
+DIV (260) 6
+MUL (261) 7
+POW (262) 8
+POW2 (263) 9
+SQRT (264) 10
+END (265) 3 4
+
+
+Nonterminals, with rules where they appear
+
+$accept (11)
+    on left: 0
+Input (12)
+    on left: 1 2, on right: 0 2
+Line (13)
+    on left: 3 4, on right: 2
+expr (14)
+    on left: 5 6 7 8 9 10, on right: 4 6 7 8 9 10
+
+
+State 0
+
+    0 $accept: . Input $end
+
+    $default  reduce using rule 1 (Input)
+
+    Input  go to state 1
+
+
+State 1
+
+    0 $accept: Input . $end
+    2 Input: Input . Line
+
+    $end  shift, and go to state 2
+    PG    shift, and go to state 3
+    SQRT  shift, and go to state 4
+    END   shift, and go to state 5
+
+    Line  go to state 6
+    expr  go to state 7
+
+
+State 2
+
+    0 $accept: Input $end .
+
+    $default  accept
+
+
+State 3
+
+    5 expr: PG .
+
+    $default  reduce using rule 5 (expr)
+
+
+State 4
+
+   10 expr: SQRT . expr
+
+    PG    shift, and go to state 3
+    SQRT  shift, and go to state 4
+
+    expr  go to state 8
+
+
+State 5
+
+    3 Line: END .
+
+    $default  reduce using rule 3 (Line)
+
+
+State 6
+
+    2 Input: Input Line .
+
+    $default  reduce using rule 2 (Input)
+
+
+State 7
+
+    4 Line: expr . END
+    6 expr: expr . DIV expr
+    7     | expr . MUL expr
+    8     | expr . POW NUMBER
+    9     | expr . POW2
+
+    DIV   shift, and go to state 9
+    MUL   shift, and go to state 10
+    POW   shift, and go to state 11
+    POW2  shift, and go to state 12
+    END   shift, and go to state 13
+
+
+State 8
+
+    6 expr: expr . DIV expr
+    7     | expr . MUL expr
+    8     | expr . POW NUMBER
+    9     | expr . POW2
+   10     | SQRT expr .
+
+    POW   shift, and go to state 11
+    POW2  shift, and go to state 12
+
+    $default  reduce using rule 10 (expr)
+
+
+State 9
+
+    6 expr: expr DIV . expr
+
+    PG    shift, and go to state 3
+    SQRT  shift, and go to state 4
+
+    expr  go to state 14
+
+
+State 10
+
+    7 expr: expr MUL . expr
+
+    PG    shift, and go to state 3
+    SQRT  shift, and go to state 4
+
+    expr  go to state 15
+
+
+State 11
+
+    8 expr: expr POW . NUMBER
+
+    NUMBER  shift, and go to state 16
+
+
+State 12
+
+    9 expr: expr POW2 .
+
+    $default  reduce using rule 9 (expr)
+
+
+State 13
+
+    4 Line: expr END .
+
+    $default  reduce using rule 4 (Line)
+
+
+State 14
+
+    6 expr: expr . DIV expr
+    6     | expr DIV expr .
+    7     | expr . MUL expr
+    8     | expr . POW NUMBER
+    9     | expr . POW2
+
+    POW   shift, and go to state 11
+    POW2  shift, and go to state 12
+
+    $default  reduce using rule 6 (expr)
+
+
+State 15
+
+    6 expr: expr . DIV expr
+    7     | expr . MUL expr
+    7     | expr MUL expr .
+    8     | expr . POW NUMBER
+    9     | expr . POW2
+
+    DIV   shift, and go to state 9
+    POW   shift, and go to state 11
+    POW2  shift, and go to state 12
+
+    $default  reduce using rule 7 (expr)
+
+
+State 16
+
+    8 expr: expr POW NUMBER .
+
+    $default  reduce using rule 8 (expr)
